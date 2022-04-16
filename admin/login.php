@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('database_inc.php');
 include('function_inc.php');
 $msg ="";
@@ -9,7 +10,9 @@ if(isset($_POST['submit'])) {
      $spl="select * from admin where username='$username' and password='$password'";
      $res=mysqli_query($con,$spl);
      if(mysqli_num_rows($res)>0){
-
+            $row = mysqli_fetch_assoc($res);
+            $_SESSION['IS_LOGIN']='yes';
+            redirect('index.php');
      }else{
          $msg="please enter valide login details ";
      }
